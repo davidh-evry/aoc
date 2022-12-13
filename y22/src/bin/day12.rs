@@ -1,11 +1,9 @@
 use std::collections::BinaryHeap;
 
-use y22::read_lines;
-
 fn main() {
-    let lines = read_lines("res/day12.txt");
-    let chars = lines
-        .into_iter()
+    let chars = std::fs::read_to_string("res/day12.txt")
+        .unwrap()
+        .lines()
         .map(|l| l.chars().collect::<Vec<_>>())
         .collect::<Vec<_>>();
     let mut grid = vec![vec![0; chars[0].len()]; chars.len()];

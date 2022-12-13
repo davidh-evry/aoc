@@ -1,14 +1,12 @@
-use y22::read_lines;
-
 fn main() {
-    let lines = read_lines("res/day10.txt");
+    let file_content = std::fs::read_to_string("res/day10.txt").unwrap();
     let step = 40;
     let mut next = 20;
     let mut clock = 1;
     let mut x_reg = 1;
     let mut sum = 0;
     let mut screen = vec![['.'; 40]; 6];
-    for line in lines {
+    for line in file_content.lines() {
         let is_noop = line == "noop";
         let clock_ticks = if is_noop { 1 } else { 2 };
         for _ in 0..clock_ticks {

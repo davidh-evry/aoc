@@ -1,10 +1,8 @@
 use std::collections::HashSet;
 
-use y22::read_lines;
-
 fn main() {
-    let input = read_lines("res/day6.txt");
-    let chars = input[0].chars().collect::<Vec<_>>();
+    let input = std::fs::read_to_string("res/day6.txt").unwrap();
+    let chars = input.chars().collect::<Vec<_>>();
     get_start(&chars, 4);
     get_start(&chars, 14);
 }

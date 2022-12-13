@@ -1,10 +1,9 @@
 use std::{cell::RefCell, collections::VecDeque};
 
-use y22::read_lines;
-
 fn main() {
-    let all_lines = read_lines("res/day11.txt");
-    let monkeys = parse_monkeys(all_lines);
+    let file_content = std::fs::read_to_string("res/day11.txt").unwrap();
+    let lines = file_content.lines().collect::<Vec<_>>();
+    let monkeys = parse_monkeys(lines);
     println!("{}", run_sim(20, &monkeys, 3));
     println!("{}", run_sim(10000, &monkeys, 1));
 }
@@ -38,14 +37,14 @@ fn run_sim(count: i32, original_monkeys: &Vec<Monkey>, relief: usize) -> usize {
     inspect_counts.iter().take(2).product()
 }
 
-fn parse_monkeys(all_lines: Vec<String>) -> Vec<Monkey> {
+fn parse_monkeys(all_lines: Vec<&str>) -> Vec<Monkey> {
     let mut monkeys = vec![];
     for lines in all_lines.chunks(7) {
         let items = lines[1][18..]
             .split(", ")
             .map(|s| s.parse().unwrap())
             .collect();
-        let operation = lines[2].as_str().into();
+        let operation = lines[2].into();
         let divisor = last_num(&lines[3]);
         let throw_true = last_num(&lines[4]);
         let throw_false = last_num(&lines[5]);

@@ -1,10 +1,8 @@
-use y22::read_lines;
-
 fn main() {
-    let lines = read_lines("res/day1.txt");
+    let file_content = std::fs::read_to_string("res/day1.txt").unwrap();
     let mut elves = vec![];
     let mut elf = vec![];
-    for line in lines {
+    for line in file_content.lines() {
         if line.is_empty() {
             elves.push(elf);
             elf = vec![]
@@ -17,15 +15,15 @@ fn main() {
 }
 
 fn find_max(elves: &Vec<Vec<u32>>) -> Vec<u32> {
-    let mut maxes = vec![0,0,0];
+    let mut maxes = vec![0, 0, 0];
     for elf in elves {
         let cals: u32 = elf.iter().sum();
         for i in 0..maxes.len() {
-          if cals > maxes[i] {
-            maxes.insert(i, cals);
-            maxes.pop();
-            break;
-          }
+            if cals > maxes[i] {
+                maxes.insert(i, cals);
+                maxes.pop();
+                break;
+            }
         }
     }
     return maxes;

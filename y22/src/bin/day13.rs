@@ -1,11 +1,7 @@
 use std::cmp::Ordering;
 
-use y22::read_lines;
-
 fn main() {
-    let lines = read_lines("res/day13.txt");
-    let pairs = parse_pairs(lines);
-
+    let pairs = parse_pairs("res/day13.txt");
     let sum = pairs
         .iter()
         .enumerate()
@@ -31,7 +27,9 @@ fn main() {
     println!("{prod}");
 }
 
-fn parse_pairs(lines: Vec<String>) -> Vec<(Element, Element)> {
+fn parse_pairs(path: &str) -> Vec<(Element, Element)> {
+    let file_content = std::fs::read_to_string(path).unwrap();
+    let lines = file_content.lines().collect::<Vec<_>>();
     lines
         .chunks(3)
         .map(|chunk| (parse_line(&chunk[0]).1, parse_line(&chunk[1]).1))

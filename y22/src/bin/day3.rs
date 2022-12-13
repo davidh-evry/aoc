@@ -1,11 +1,9 @@
 use std::collections::HashSet;
 
-use y22::read_lines;
-
 fn main() {
-    let lines = read_lines("res/day3.txt");
-    let rucksacks = lines
-        .iter()
+    let rucksacks = std::fs::read_to_string("res/day3.txt")
+        .unwrap()
+        .lines()
         .map(|line| line.chars().collect::<Vec<_>>())
         .collect::<Vec<_>>();
     let sum = rucksacks

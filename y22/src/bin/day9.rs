@@ -1,11 +1,9 @@
 use std::collections::HashSet;
 
-use y22::read_lines;
-
 fn main() {
-    let lines = read_lines("res/day9.txt");
-    let commands = lines
-        .into_iter()
+    let commands = std::fs::read_to_string("res/day9.txt")
+        .unwrap()
+        .lines()
         .map(|line| {
             line.split_once(" ")
                 .map(|(l, r)| (l.to_owned(), r.parse::<usize>().unwrap()))

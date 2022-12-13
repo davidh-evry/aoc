@@ -1,7 +1,5 @@
 use std::ops::Range;
 
-use y22::read_lines;
-
 fn main() {
     let pairs = parse("res/day4.txt");
     count_fully_contains(&pairs);
@@ -29,8 +27,9 @@ fn fully_contains(a: &Range<u32>, b: &Range<u32>) -> bool {
 }
 
 fn parse(path: &str) -> Vec<(Range<u32>, Range<u32>)> {
-    read_lines(path)
-        .into_iter()
+    std::fs::read_to_string(path)
+        .unwrap()
+        .lines()
         .map(|line| line.split(",").map(String::from).collect::<Vec<_>>())
         .map(|s| (get_range(&s[0]), get_range(&s[1])))
         .collect()

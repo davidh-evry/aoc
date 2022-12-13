@@ -1,5 +1,3 @@
-use y22::read_lines;
-
 fn main() {
     let (stacks, commands) = parse("res/day5.txt");
     p1(commands.clone(), stacks.clone());
@@ -28,8 +26,9 @@ fn p1(commands: Vec<(usize, usize, usize)>, mut stacks: Vec<Vec<char>>) {
 }
 
 fn parse(path: &str) -> (Vec<Vec<char>>, Vec<(usize, usize, usize)>) {
+    let file_content = std::fs::read_to_string(path).unwrap();
+    let lines = file_content.lines().collect::<Vec<_>>();
     let mut stacks = vec![vec![]; 9];
-    let lines = read_lines(path);
     for line in &lines[0..8] {
         for (i, chars) in line.chars().collect::<Vec<_>>().chunks(4).enumerate() {
             let c = chars[1];

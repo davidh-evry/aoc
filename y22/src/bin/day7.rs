@@ -1,13 +1,11 @@
 use std::{cell::RefCell, collections::HashMap, rc::Rc};
 
-use y22::read_lines;
-
 fn main() {
-    let lines = read_lines("res/day7.txt");
+    let file_content = std::fs::read_to_string("res/day7.txt").unwrap();
     let root = Dir::new_ref("/", None);
     let mut current = root.clone();
     let mut dirs = vec![];
-    let mut it = lines.iter().peekable();
+    let mut it = file_content.lines().peekable();
     while it.peek().is_some() {
         let line = it.next().unwrap();
         let command = line.split_whitespace().collect::<Vec<_>>();
@@ -43,20 +41,17 @@ fn main() {
             _ => panic!("Unknown command: {line}"),
         }
     }
-    let size = dirs
-        .iter()
-        .map(|d| d.borrow().total_size())
-        .filter(|s| *s <= 100000)
-        .sum::<u64>();
-    println!("{size}");
-    let total = 70000000u64;
-    let required = 30000000u64;
-    let free = total - root.borrow().total_size();
-    let need = required - free;
     let mut sizes = dirs
-        .iter()
+        .into_iter()
         .map(|d| d.borrow().total_size())
         .collect::<Vec<_>>();
+    let size = sizes.iter().filter(|s| **s <= 100000).sum::<u64>();
+    println!("{size}");
+
+    let total = 70000000;
+    let required = 30000000;
+    let free = total - root.borrow().total_size();
+    let need = required - free;
     sizes.sort();
     let remove = sizes.iter().find(|s| **s >= need).unwrap();
     println!("{remove}");

@@ -1,11 +1,9 @@
 use std::collections::HashMap;
 
-use y22::read_lines;
-
 fn main() {
-    let lines = read_lines("res/day2.txt");
-    let games = lines
-        .iter()
+    let games = std::fs::read_to_string("res/day2.txt")
+        .unwrap()
+        .lines()
         .map(|line| (line.chars().nth(0).unwrap(), line.chars().nth(2).unwrap()))
         .collect::<Vec<_>>();
     print_score(&games, part_1_map());

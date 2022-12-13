@@ -1,11 +1,9 @@
 use std::collections::HashSet;
 
-use y22::read_lines;
-
 fn main() {
-    let lines = read_lines("res/day8.txt");
+    let file_content = std::fs::read_to_string("res/day8.txt").unwrap();
     let mut grid = vec![];
-    for line in lines {
+    for line in file_content.lines() {
         grid.push(
             line.chars()
                 .map(|c| c.to_digit(10).unwrap())
